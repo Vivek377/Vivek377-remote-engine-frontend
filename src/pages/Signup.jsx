@@ -39,8 +39,7 @@ const Signup = () => {
         if (data) {
           navigate("/login");
           toast({
-            title: "Account created.",
-            description: "We've created your account for you.",
+            title: `${data.msg}`,
             status: "success",
             duration: 4000,
             isClosable: true,

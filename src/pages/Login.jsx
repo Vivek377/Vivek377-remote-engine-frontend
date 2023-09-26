@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useContext, useState } from "react";
@@ -20,6 +21,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { setIsAuth } = useContext(AuthContext);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleClick = async () => {
     try {
@@ -27,15 +29,33 @@ const Login = () => {
         email,
         password,
       };
+
       const res = await axios.post("http://localhost:4832/user/login", payload);
       const data = await res.data;
+
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("verified", res.data.isVerified);
-      setIsAuth(res.data.isVerified);
+
+      setIsAuth(localStorage.getItem("verified"));
       navigate("/dashboard");
+
+      toast({
+        title: `${data.msg}`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+
       console.log(data);
+
     } catch (e) {
       console.log(e);
+      toast({
+        title: `${e.message}`,
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
     }
   };
 
