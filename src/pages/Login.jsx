@@ -31,10 +31,7 @@ const Login = () => {
         password,
       };
 
-      const res = await axios.post(
-        `${link}/user/login`,
-        payload
-      );
+      const res = await axios.post(`${link}/user/login`, payload);
       const data = await res.data;
 
       localStorage.setItem("token", res.data.token);

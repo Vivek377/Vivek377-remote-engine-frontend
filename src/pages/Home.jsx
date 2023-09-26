@@ -5,34 +5,41 @@ import { link } from "../config";
 
 const Home = () => {
   const [state, setState] = useState(false);
-  const [start, setStart] = useState(null);
-  const [end, setEnd] = useState(null);
+  const [startHour, setStartHour] = useState(null);
+  const [startMin, setStartMin] = useState(null);
+  const [endHour, setEndHour] = useState(null);
+  const [endMin, setEndMin] = useState(null);
   const toast = useToast();
 
   const handleSubmit = async () => {
     setState(!state);
 
     const currentDateTime = new Date();
-    setEnd(currentDateTime.getHours());
+    setEndHour(currentDateTime.getHours());
+    setEndMin(currentDateTime.getMinutes());
 
     if (!state) {
-      setStart(currentDateTime.getHours());
+      setStartHour(currentDateTime.getHours());
+      setStartMin(currentDateTime.getMinutes());
     } else {
-      setEnd(currentDateTime.getHours());
-      const totalTime = Math.abs(end - start);
+      setEndHour(currentDateTime.getHours());
+      setEndMin(currentDateTime.getMinutes());
+
+      const totalTimeHr = Math.abs(endHour - startHour);
+      const totalTimeMin = Math.abs(endMin - startMin);
+
+      const totalTime = `${totalTimeHr}:${totalTimeMin}`;
+      const start = `${startHour}:${startMin}`;
+      const end = `${endHour}:${endMin}`;
 
       const payload = { totalTime, start, end };
 
       try {
-        const res = await axios.post(
-          `${link}/user/worktime`,
-          payload,
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        );
+        const res = await axios.post(`${link}/user/worktime`, payload, {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        });
         const data = await res.data;
         toast({
           title: "Email sent.",
