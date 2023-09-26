@@ -20,7 +20,7 @@ import { link } from "../config";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth, isAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -37,15 +37,22 @@ const Login = () => {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("verified", res.data.isVerified);
 
-      setIsAuth(res.data.isVerified);
-      navigate("/dashboard");
+      setIsAuth(true);
 
-      toast({
-        title: `${data.msg}`,
-        status: "success",
-        duration: 4000,
-        isClosable: true,
-      });
+      if (isAuth) {
+
+        navigate("/dashboard");
+
+        toast({
+          title: `${data.msg}`,
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+
+      } else {
+        navigate("/verify");
+      }
 
       console.log(data);
     } catch (e) {

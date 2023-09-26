@@ -1,7 +1,9 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Box, Button, useToast } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { link } from "../config";
+import { AuthContext } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
   const [state, setState] = useState(false);
@@ -9,6 +11,7 @@ const Home = () => {
   const [startMin, setStartMin] = useState(null);
   const [endHour, setEndHour] = useState(null);
   const [endMin, setEndMin] = useState(null);
+  const { setIsAuth, isAuth } = useContext(AuthContext);
   const toast = useToast();
 
   const handleSubmit = async () => {
@@ -60,11 +63,28 @@ const Home = () => {
     }
   };
 
+  const handleLogout = () => {
+    setIsAuth(false);
+    localStorage.clear();
+  };
+
+  console.log(isAuth);
+
+  if(!isAuth) return <Navigate to={"/verify"} />
+
   return (
     <div>
-      <Button onClick={() => handleSubmit()}>
-        {state ? "Stop Time" : "Start Time"}
-      </Button>
+      <Box
+        display={"flex"}
+        justifyContent={"space-around"}
+        alignItems={"center"}
+      >
+        <Button onClick={() => handleSubmit()}>
+          {state ? "Stop Time" : "Start Time"}
+        </Button>
+
+        <Button onClick={() => handleLogout()}>Logout</Button>
+      </Box>
     </div>
   );
 };

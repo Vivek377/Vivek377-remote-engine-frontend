@@ -6,7 +6,9 @@ const Verify = () => {
   return (
     <div>
       <Heading>Please Verify your email.</Heading>
-      <Text>An email has been sent to your email ID</Text>
+      <Text>
+        An email has been sent to your email ID (ignore if already verified)
+      </Text>
       <Link to={"/login"}>
         <Text textDecoration={"underline"}>Back to Login</Text>
       </Link>
