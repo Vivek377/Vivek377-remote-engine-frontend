@@ -1,6 +1,7 @@
 import { Button, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { link } from "../config";
 
 const Home = () => {
   const [state, setState] = useState(false);
@@ -24,7 +25,7 @@ const Home = () => {
 
       try {
         const res = await axios.post(
-          `https://friendly-pig-toga.cyclic.cloud/user/worktime`,
+          `${link}/user/worktime`,
           payload,
           {
             headers: {

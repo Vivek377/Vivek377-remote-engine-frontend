@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { link } from "../config";
 
 const Reset = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ const Reset = () => {
           password,
         };
         const res = await axios.post(
-          "https://friendly-pig-toga.cyclic.cloud/user/reset",
+          `${link}/user/reset`,
           payload
         );
         const data = await res.data;

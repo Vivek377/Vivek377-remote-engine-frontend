@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
+import { link } from "../config";
 
 const Signup = () => {
   const [fullName, setFullName] = useState("");
@@ -31,9 +32,10 @@ const Signup = () => {
           password,
         };
         const res = await axios.post(
-          "https://friendly-pig-toga.cyclic.cloud/user/register",
+          `${link}/user/register`,
           payload
         );
+
         const data = await res.data;
 
         if (data) {

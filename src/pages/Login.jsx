@@ -15,6 +15,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { link } from "../config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ const Login = () => {
       };
 
       const res = await axios.post(
-        "https://friendly-pig-toga.cyclic.cloud/user/login",
+        `${link}/user/login`,
         payload
       );
       const data = await res.data;
