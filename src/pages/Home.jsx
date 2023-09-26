@@ -24,7 +24,7 @@ const Home = () => {
 
       try {
         const res = await axios.post(
-          `http://localhost:4832/user/worktime`,
+          `https://friendly-pig-toga.cyclic.cloud/user/worktime`,
           payload,
           {
             headers: {

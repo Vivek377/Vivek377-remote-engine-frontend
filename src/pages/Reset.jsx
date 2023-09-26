@@ -29,7 +29,7 @@ const Reset = () => {
           password,
         };
         const res = await axios.post(
-          "http://localhost:4832/user/reset",
+          "https://friendly-pig-toga.cyclic.cloud/user/reset",
           payload
         );
         const data = await res.data;

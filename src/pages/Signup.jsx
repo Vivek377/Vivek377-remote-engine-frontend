@@ -31,7 +31,7 @@ const Signup = () => {
           password,
         };
         const res = await axios.post(
-          "http://localhost:4832/user/register",
+          "https://friendly-pig-toga.cyclic.cloud/user/register",
           payload
         );
         const data = await res.data;

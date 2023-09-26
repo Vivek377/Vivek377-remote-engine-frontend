@@ -30,13 +30,16 @@ const Login = () => {
         password,
       };
 
-      const res = await axios.post("http://localhost:4832/user/login", payload);
+      const res = await axios.post(
+        "https://friendly-pig-toga.cyclic.cloud/user/login",
+        payload
+      );
       const data = await res.data;
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("verified", res.data.isVerified);
 
-      setIsAuth(localStorage.getItem("verified"));
+      setIsAuth(res.data.isVerified);
       navigate("/dashboard");
 
       toast({
@@ -47,7 +50,6 @@ const Login = () => {
       });
 
       console.log(data);
-
     } catch (e) {
       console.log(e);
       toast({
